@@ -12,6 +12,8 @@ import org.opencv.dnn.Dnn;
 import org.opencv.dnn.Net;
 import org.opencv.imgcodecs.Imgcodecs;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Base64;
 
 /**
@@ -37,10 +39,10 @@ public class ImageRecognition {
 
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
-        Net net = Dnn.readNetFromCaffe(args.getAsJsonPrimitive("prototxt").getAsString(),
-                args.getAsJsonPrimitive("caffemodel").getAsString());
+        Path prototxt = Paths.get("src/main/resources/MobileNetSSD_deploy.prototxt.txt");
+        Path caffeModel = Paths.get("src/main/resources/MobileNetSSD_deploy.caffemodel");
+        Net net = Dnn.readNetFromCaffe(prototxt.toString(), caffeModel.toString());
 
-         //= args.getAsJsonPrimitive("image").getAsString().getBytes();
         byte[] bytes = Base64.getDecoder().decode(args.getAsJsonPrimitive("image").getAsString());
 
         Mat img1 = Imgcodecs.imdecode(new MatOfByte(bytes), Imgcodecs.CV_LOAD_IMAGE_UNCHANGED);
@@ -92,4 +94,3 @@ public class ImageRecognition {
 
 
 }
-
