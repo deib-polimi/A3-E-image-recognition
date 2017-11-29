@@ -22,7 +22,7 @@ configurations {
 }
 
 dependencies {
-    compile 'com.google.code.gson:gson:2.6.2'
+    provided 'com.google.code.gson:gson:2.6.2'
     compile files('libs/opencv-331.jar')
 }
 
